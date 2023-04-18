@@ -1,0 +1,15 @@
+from socket import *
+
+serverport = 14750
+# create the UDP server socket and bind to socket
+socketServer = socket(AF_INET, SOCK_DGRAM)
+socketServer.bind(('', serverport))
+print("Server is listening")
+
+while True:
+    messageclient, clientaddress = socketServer.recvfrom(2048)
+    data = "Hello, What's your name? "
+    socketServer.sendto(data.encode(), clientaddress)
+    message, clientaddress = socketServer.recvfrom(2048)
+    data = "Hello " + message.decode() + ". Welcome to SIT202"
+    socketServer.sendto(data.encode(), clientaddress)
